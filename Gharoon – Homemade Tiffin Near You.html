@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gharoon – Homemade Tiffin Near You</title>
+<style>
+:root{--bg:#f6f7ef;--surf:#fff;--ink:#1d2a1d;--mut:#5b6a5b;--leaf:#2d6a3e;--leaf-t:#fff;--tur:#f2b01e;--chili:#b83a22;--line:#d9dfcc;--r:14px;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+
+
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Hind","Segoe UI",system-ui,sans-serif}
+h1,h2,h3{font-family:"Fraunces",Georgia,serif;line-height:1.15;margin:0 0 .5rem}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surf);border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;justify-content:space-between;padding:.6rem 1rem}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--surf);z-index:10}
+.logo{font:700 1.4rem Georgia,serif;color:var(--leaf);cursor:pointer}
+nav{display:flex;gap:.4rem;flex-wrap:wrap}
+button,.btn{font:inherit;border:1px solid var(--line);background:var(--surf);color:var(--ink);padding:.45rem .9rem;border-radius:10px;cursor:pointer}
+button.p{background:var(--leaf);color:var(--leaf-t);border-color:var(--leaf)}
+button.d{color:var(--chili);border-color:var(--chili)}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--tur);outline-offset:1px}
+main{max-width:1000px;margin:0 auto;padding:1rem}
+.hero{background:var(--leaf);color:var(--leaf-t);border-radius:var(--r);padding:1.6rem 1.2rem;margin-bottom:1rem}
+.hero h1{font-size:clamp(1.7rem,5vw,2.8rem)}
+.hero p{margin:.3rem 0 0;max-width:60ch}
+.grid{display:grid;gap:.8rem;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.card{background:var(--surf);border:1px solid var(--line);border-radius:var(--r);padding:1rem}
+.filters{display:grid;gap:.5rem;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));margin-bottom:1rem}
+input,select,textarea{font:inherit;width:100%;padding:.5rem .6rem;border:1px solid var(--line);border-radius:10px;background:var(--surf);color:var(--ink)}
+label{display:block;font-size:.85rem;color:var(--mut);margin:.5rem 0 .15rem}
+.tag{display:inline-block;font-size:.78rem;padding:.1rem .55rem;border-radius:99px;border:1px solid var(--line);margin-right:.25rem}
+.veg{border-color:var(--leaf);color:var(--leaf)}.nv{border-color:var(--chili);color:var(--chili)}
+.star{color:#c98a00}
+table{width:100%;border-collapse:collapse;font-size:.92rem}
+.scroll{overflow-x:auto}
+th,td{text-align:left;padding:.45rem;border-bottom:1px solid var(--line)}
+.row{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
+.kpis{display:grid;gap:.6rem;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin-bottom:1rem}
+.kpi b{display:block;font:700 1.6rem Georgia,serif;color:var(--leaf)}
+.tabs{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1rem}
+.tabs button[aria-pressed=true]{background:var(--tur);color:#1d2a1d;border-color:var(--tur)}
+#toast{position:fixed;left:50%;bottom:calc(1rem + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:.6rem 1rem;border-radius:10px;display:none;z-index:20}
+.mut{color:var(--mut)}.err{color:var(--chili)}
+.narrow{max-width:420px;margin:1rem auto}
+:root{color-scheme:light}
+select option{background:#fff;color:#1d2a1d}
+.hero{position:relative;overflow:hidden;background:linear-gradient(120deg,#2d6a3e,#1f5a35,#3f7f3a,#2d6a3e);background-size:300% 300%;animation:grad 10s ease infinite alternate}
+.hero::after{content:"🍛";position:absolute;right:1rem;bottom:.2rem;font-size:4rem;animation:float 3.5s ease-in-out infinite}
+.hero h1{animation:rise .7s backwards}.hero p{animation:rise .7s .15s backwards}
+.card{animation:rise .5s backwards;transition:transform .2s,box-shadow .2s}
+.card:hover{transform:translateY(-4px);box-shadow:0 10px 24px rgba(45,106,62,.2)}
+.grid>.card:nth-child(2){animation-delay:.07s}.grid>.card:nth-child(3){animation-delay:.14s}.grid>.card:nth-child(4){animation-delay:.21s}.grid>.card:nth-child(5){animation-delay:.28s}.grid>.card:nth-child(6){animation-delay:.35s}
+tr{animation:rise .35s backwards}
+button{transition:transform .15s,background .2s,color .2s}
+button:hover{background:var(--tur);color:#1d2a1d;border-color:var(--tur)}
+button.p:hover{background:#1f5a35;color:#fff}
+button:active{transform:scale(.95)}
+.badge{background:var(--chili);color:#fff;border-radius:99px;font-size:.7rem;padding:0 .4rem;margin-left:.25rem;display:inline-block;animation:pulse 1.4s infinite}
+.tag{transition:transform .2s}.tag:hover{transform:scale(1.08)}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes grad{to{background-position:100% 50%}}
+@keyframes float{50%{transform:translateY(-10px) rotate(6deg)}}
+@keyframes pulse{50%{transform:scale(1.25)}}
+@media(prefers-reduced-motion:reduce){*,::before,::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header><span class="logo" onclick="go('home')">🍱 Gharoon</span><nav id="nav"></nav></header>
+<main id="app" aria-live="polite"></main>
+<div id="toast" role="status"></div>
+<script>
+/* ---------- Data layer (localStorage, with fallback to memory) ---------- */
+const KEY='gharoon_v4';
+let db, S={view:'home',tab:'',cookId:null,f:{city:'',q:'',type:'',cuisine:'',plan:'',max:''}};
+const uid=()=>Math.random().toString(36).slice(2,9);
+async function sha(t){try{const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t));return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}catch(e){return btoa(t)}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(db))}catch(e){}}
+function extraCooks(){const k=(id,name,city,area,cuisine,kind,daily,dish,price,type)=>({id,userId:null,name,city,area,serves:area+' and nearby',cuisine,kind,timings:'Lunch 12:00–2:00',bio:'Fresh '+cuisine+' meals cooked at home with less oil.',status:'approved',plans:{daily,weekly:daily*6,monthly:daily*24},menu:[{id:id+'m',dish,type,price,avail:true,time:'12:30 PM'}]});
+  return[k('c8',"Anjali's Roti Ghar",'Mysuru','Saraswathipuram','North Indian','Veg',100,'Roti Dal Sabzi Thali',90,'Veg'),
+  k('c9','Jain Bhojanalaya','Mysuru','Lakshmipuram','Jain','Veg',110,'Jain Thali (no onion, no garlic)',100,'Veg'),
+  k('c10','Ammi Mane South Meals','Bengaluru','BTM Layout','South Indian','Veg',90,'Idli Dosa Combo',70,'Veg'),
+  k('c11','Kamala Karnataka Oota','Bengaluru','JP Nagar','Karnataka Meals','Both',100,'Jolada Rotti Meals',90,'Veg'),
+  k('c12','Jain Home Tiffin','Bengaluru','Jayanagar','Jain','Veg',115,'Jain Roti Sabzi',100,'Veg'),
+  k('c13','Lakshmi South Tiffin','Hyderabad','Kondapur','South Indian','Veg',90,'Pongal Vada',60,'Veg'),
+  k('c14','Punjabi Dhaba Home','Hyderabad','Gachibowli','North Indian','Both',120,'Butter Chicken Meal',150,'Non-Veg'),
+  k('c15','Karnataka Bhavan Mane','Hyderabad','Madhapur','Karnataka Meals','Veg',95,'Bisi Bele Bath Box',70,'Veg'),
+  k('c16','Bengali Rasoi','Mysuru','Gokulam','Bengali','Both',110,'Egg Curry Meal',110,'Non-Veg'),
+  k('c17','Gujarati Rasoi','Bengaluru','Malleshwaram','Gujarati','Veg',100,'Gujarati Thali',100,'Veg'),
+  k('c18','Hyderabadi Zaika','Mysuru','Vijayanagar','Hyderabadi','Both',130,'Mutton Biryani',170,'Non-Veg'),
+  k('c19','Hyderabadi Dawat','Bengaluru','HSR Layout','Hyderabadi','Both',130,'Chicken Biryani',150,'Non-Veg'),
+  k('c20','Jain Tiffin Centre','Hyderabad','Banjara Hills','Jain','Veg',110,'Jain Dal Rice Thali',100,'Veg'),
+  k('c21','Bengali Mishti Ghar','Hyderabad','Jubilee Hills','Bengali','Veg',110,'Khichuri Combo',90,'Veg'),
+  k('c22','Gujarati Ghar','Mysuru','Hebbal','Gujarati','Veg',95,'Dal Dhokli Meal',80,'Veg')]}
+async function seed(){
+  const a=await sha('admin123'),c=await sha('cook123'),c2=await sha('cook123'),cu=await sha('cust123'),d=n=>new Date(Date.now()-n*864e5).toISOString().slice(0,10);
+  return{session:null,
+  cuisines:['North Indian','South Indian','Karnataka Meals','Gujarati','Bengali','Jain','Hyderabadi'],
+  users:[{id:'u_admin',name:'Admin',email:'admin@demo.com',pw:a,role:'admin',city:'Mysuru',active:true},
+         {id:'u_c1',name:'Lakshmi Devi',email:'cook@demo.com',pw:c,role:'cook',city:'Mysuru',active:true},
+         {id:'u_c2',name:'Ravi Kumar',email:'ravi@demo.com',pw:c2,role:'cook',city:'Bengaluru',active:true},{id:'u_cust',name:'Demo Customer',email:'customer@demo.com',pw:cu,role:'customer',city:'Mysuru',active:true}],
+  cooks:[
+   {id:'c1',userId:'u_c1',name:"Lakshmi's Kitchen",city:'Mysuru',area:'Vijayanagar',serves:'Vijayanagar, Kuvempunagar, Hebbal',cuisine:'Karnataka Meals',kind:'Veg',timings:'Lunch 12:00–2:00, Dinner 7:30–9:00',bio:'Ragi mudde, bisibele bath and sambar rice cooked fresh daily in a home kitchen.',status:'approved',plans:{daily:90,weekly:560,monthly:2200},
+    menu:[{id:'m1',dish:'Ragi Mudde + Saaru',type:'Veg',price:70,avail:true},{id:'m2',dish:'Bisibele Bath',type:'Veg',price:60,avail:true},{id:'m3',dish:'Full Meals',type:'Veg',price:90,avail:true}]},
+   {id:'c2',userId:'u_c2',name:"Ravi's Home Tiffin",city:'Bengaluru',area:'Koramangala',serves:'Koramangala, HSR, BTM',cuisine:'North Indian',kind:'Both',timings:'Lunch 12:30–2:30',bio:'Roti-sabzi thalis and weekend chicken curry. Less oil, more flavour.',status:'approved',plans:{daily:110,weekly:700,monthly:2800},
+    menu:[{id:'m4',dish:'Roti Sabzi Thali',type:'Veg',price:100,avail:true},{id:'m5',dish:'Chicken Curry Meal',type:'Non-Veg',price:140,avail:true}]},
+   {id:'c3',userId:null,name:'Meena Aunty Meals',city:'Mysuru',area:'Gokulam',serves:'Gokulam, Saraswathipuram',cuisine:'South Indian',kind:'Veg',timings:'Breakfast 7:30–9:00, Lunch 12:00–1:30',bio:'Idli, dosa and curd rice for students living nearby.',status:'approved',plans:{daily:80,weekly:500,monthly:1900},
+    menu:[{id:'m6',dish:'Idli Vada Combo',type:'Veg',price:50,avail:true},{id:'m7',dish:'Curd Rice Box',type:'Veg',price:60,avail:true}]},
+   {id:'c4',userId:null,name:"Fatima's Dum Kitchen",city:'Hyderabad',area:'Banjara Hills',serves:'Banjara Hills, Jubilee Hills, Madhapur',cuisine:'Hyderabadi',kind:'Both',timings:'Lunch 12:30–2:30, Dinner 8:00–9:30',bio:'Slow-cooked dum biryani and mirchi ka salan made at home.',status:'approved',plans:{daily:130,weekly:820,monthly:3200},menu:[{id:'m8',dish:'Chicken Dum Biryani',type:'Non-Veg',price:160,avail:true,time:'1:00 PM'},{id:'m9',dish:'Veg Biryani',type:'Veg',price:120,avail:true,time:'1:00 PM'}]},
+   {id:'c5',userId:null,name:'Shah Home Thali',city:'Hyderabad',area:'Madhapur',serves:'Madhapur, Gachibowli, Kondapur',cuisine:'Gujarati',kind:'Veg',timings:'Lunch 12:00–2:00',bio:'Homestyle Gujarati thali with fresh rotli, dal and farsan.',status:'approved',plans:{daily:100,weekly:640,monthly:2500},menu:[{id:'m10',dish:'Gujarati Thali',type:'Veg',price:100,avail:true,time:'12:30 PM'}]},
+   {id:'c6',userId:null,name:"Mitali's Bengali Tiffin",city:'Bengaluru',area:'Indiranagar',serves:'Indiranagar, Domlur, Ulsoor',cuisine:'Bengali',kind:'Both',timings:'Lunch 12:30–2:30',bio:'Machher jhol, luchi and alur dum like in Kolkata homes.',status:'approved',plans:{daily:120,weekly:760,monthly:3000},menu:[{id:'m11',dish:'Machher Jhol Meal',type:'Non-Veg',price:130,avail:true,time:'1:00 PM'},{id:'m12',dish:'Luchi Alur Dum',type:'Veg',price:80,avail:true,time:'12:30 PM'}]},
+   {id:'c7',userId:null,name:'Gowda Mane Oota',city:'Mysuru',area:'Kuvempunagar',serves:'Kuvempunagar, Vijayanagar, Hebbal',cuisine:'Karnataka Meals',kind:'Both',timings:'Lunch 12:00–2:00',bio:'Naati style meals with chicken curry and ragi balls.',status:'approved',plans:{daily:100,weekly:640,monthly:2400},menu:[{id:'m13',dish:'Naati Chicken Meal',type:'Non-Veg',price:150,avail:true,time:'1:00 PM'},{id:'m14',dish:'Veg Meals',type:'Veg',price:80,avail:true,time:'12:30 PM'}]},...extraCooks()],
+  orders:[{id:'o_s1',userId:'u_cust',cookId:'c1',kind:'sub',plan:'monthly',item:'monthly tiffin plan',amount:2200,status:'accepted',date:d(9),start:d(9),pay:{method:'UPI',status:'Paid',txn:'TXN10293847'}},
+   {id:'o_s2',userId:'u_cust',cookId:'c3',kind:'sub',plan:'weekly',item:'weekly tiffin plan',amount:500,status:'accepted',date:d(5),start:d(5),pay:{method:'Card',status:'Paid',txn:'TXN55667788'}},
+   {id:'o_s3',userId:'u_cust',cookId:'c7',kind:'sub',plan:'weekly',item:'weekly tiffin plan',amount:640,status:'pending',date:d(0),pay:{method:'Cash on delivery',status:'Pay on delivery',txn:''}},
+   {id:'o_o1',userId:'u_cust',cookId:'c1',kind:'order',plan:'',item:'Bisibele Bath',amount:60,status:'accepted',date:d(2),pay:{method:'UPI',status:'Paid',txn:'TXN77889900'}}],reviews:[{id:'r1',cookId:'c1',userId:'x',name:'Anitha',rating:5,text:'Tastes like home. Very clean packing.'},{id:'r2',cookId:'c2',userId:'x',name:'Karthik',rating:4,text:'Good portions, always on time.'}],
+  complaints:[]}}
+async function init(){
+  try{db=JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){db=null}
+  if(!db)db=await seed();db.cooks.forEach(c=>{if(!c.userId||c.userId==='u_c2')c.userId='u_c1'});db.cities=db.cities||['Mysuru','Bengaluru','Hyderabad'];db.notes=db.notes||[];
+  save();render();
+}
+const me=()=>db.session&&db.users.find(u=>u.id===db.session);
+const cookOf=u=>{if(!u)return;const l=db.cooks.filter(c=>c.userId===u.id);return l.find(c=>c.id===S.kid)||l[0]};
+const avg=id=>{const r=db.reviews.filter(x=>x.cookId===id);return r.length?(r.reduce((s,x)=>s+x.rating,0)/r.length):0};
+const esc=s=>String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const inr=n=>'₹'+Number(n).toLocaleString('en-IN');
+const minP=c=>{const a=[c.plans.daily,...c.menu.map(m=>m.price)].filter(x=>x>0);return a.length?Math.min(...a):0};
+function note(userId,text){db.notes.push({id:uid(),userId,text,date:new Date().toLocaleString('en-IN'),read:false})}
+function resetData(){try{localStorage.removeItem(KEY)}catch(e){}location.reload()}
+function countUp(){if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;document.querySelectorAll('.kpi b').forEach(b=>{const m=b.textContent.match(/^(\D*)(\d+)(\D*)$/);if(!m)return;const to=+m[2],t0=performance.now();(function s(t){const p=Math.min(1,(t-t0)/700);b.textContent=m[1]+Math.round(to*p)+m[3];if(p<1)requestAnimationFrame(s)})(t0)})}
+function toast(t){const e=document.getElementById('toast');e.textContent=t;e.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>e.style.display='none',2600)}
+function go(v,extra){S.view=v;if(extra!==undefined)S.cookId=extra;S.tab='';render();window.scrollTo(0,0)}
+function stars(n){return '<span class="star" aria-label="'+n.toFixed(1)+' out of 5">'+'★'.repeat(Math.round(n))+'☆'.repeat(5-Math.round(n))+'</span> '+(n?n.toFixed(1):'New')}
+
+/* ---------- Auth ---------- */
+async function doLogin(e){e.preventDefault();const f=e.target,em=f.email.value.trim().toLowerCase(),h=await sha(f.pw.value);
+  const u=db.users.find(x=>x.email===em&&x.pw===h);
+  if(!u)return void(document.getElementById('msg').textContent='Email or password is incorrect. Check both and try again.');
+  if(!u.active)return void(document.getElementById('msg').textContent='This account is blocked. Contact admin.');
+  db.session=u.id;save();toast('Logged in');go(u.role==='admin'?'admin':u.role==='cook'?'cook':'home')}
+async function doRegister(e){e.preventDefault();const f=e.target,em=f.email.value.trim().toLowerCase(),msg=document.getElementById('msg');
+  if(f.pw.value.length<6)return void(msg.textContent='Password needs at least 6 characters.');
+  if(db.users.some(x=>x.email===em))return void(msg.textContent='This email is already registered. Log in instead.');
+  const u={id:'u_'+uid(),name:f.name.value.trim(),email:em,pw:await sha(f.pw.value),role:f.role.value,city:f.city.value.trim()||'Mysuru',active:true};
+  db.users.push(u);if(!db.cities.includes(u.city))db.cities.push(u.city);
+  if(u.role==='cook')db.cooks.push({id:'c_'+uid(),userId:u.id,name:u.name+"'s Kitchen",city:u.city,area:'',serves:'',cuisine:db.cuisines[0],kind:'Veg',timings:'',bio:'',status:'pending',plans:{daily:0,weekly:0,monthly:0},menu:[]});
+  db.session=u.id;save();toast(u.role==='cook'?'Registered. Admin will review your kitchen.':'Welcome to Gharoon!');go(u.role==='cook'?'cook':'home')}
+function logout(){db.session=null;save();go('home')}
+
+/* ---------- Customer actions ---------- */
+function order(cookId,kind,plan,item){const u=me();if(!u)return go('login');
+  const c=db.cooks.find(x=>x.id===cookId);let amt,label;
+  if(kind==='sub'){amt=c.plans[plan];label=plan+' tiffin plan';if(!amt)return toast('This plan is not offered yet.')}
+  else{const m=c.menu.find(x=>x.id===item);amt=m.price;label=m.dish}
+  if(u.role!=='customer')return toast('Log in as a customer to place orders.');
+  S.co={cookId,kind,plan:plan||'',item:label,amount:amt};go('checkout')}
+function rate(oid){const o=db.orders.find(x=>x.id===oid),r=prompt('Rate this cook from 1 to 5');const n=parseInt(r);if(!(n>=1&&n<=5))return;
+  const t=prompt('Add a short review (optional)')||'';db.reviews.push({id:uid(),cookId:o.cookId,userId:o.userId,name:me().name,rating:n,text:t});o.rated=true;save();toast('Review added');render()}
+function complain(oid){const t=prompt('Describe the problem with this order');if(!t)return;db.complaints.push({id:uid(),userId:me().id,orderId:oid,text:t,status:'open',note:''});save();toast('Complaint sent to admin')}
+function setF(k,v){S.f[k]=v;render();const e=document.getElementById({city:'fc',q:'fq',type:'ft',cuisine:'fu',plan:'fp',max:'fm'}[k]);if(e)e.focus()}
+
+/* ---------- Cook actions ---------- */
+function saveProfile(e){e.preventDefault();const f=e.target,c=cookOf(me());
+  Object.assign(c,{name:f.name.value,city:f.city.value,area:f.area.value,serves:f.serves.value,timings:f.timings.value,cuisine:f.cuisine.value,kind:f.kind.value,bio:f.bio.value});
+  c.plans={daily:+f.daily.value||0,weekly:+f.weekly.value||0,monthly:+f.monthly.value||0};if(!db.cities.includes(c.city))db.cities.push(c.city);save();toast('Profile saved')}
+function saveDish(e){e.preventDefault();const f=e.target,c=cookOf(me()),id=f.id.value;
+  const d={dish:f.dish.value,type:f.type.value,price:+f.price.value,time:f.time.value,avail:f.avail.checked};
+  if(id)Object.assign(c.menu.find(m=>m.id===id),d);else c.menu.push({id:'m_'+uid(),...d});save();toast('Menu saved');render()}
+function editDish(id){const m=cookOf(me()).menu.find(x=>x.id===id),f=document.getElementById('dishForm');
+  f.id.value=id;f.dish.value=m.dish;f.type.value=m.type;f.price.value=m.price;f.time.value=m.time||'';f.avail.checked=m.avail;f.scrollIntoView()}
+function delDish(id){const c=cookOf(me());c.menu=c.menu.filter(m=>m.id!==id);save();render()}
+function setOrder(id,s){const o=db.orders.find(x=>x.id===id);o.status=s;if(s==='accepted'&&o.kind==='sub')o.start=new Date().toISOString().slice(0,10);note(o.userId,'Your request for '+o.item+' was '+s+'.');if(s==='rejected'&&o.pay&&o.pay.status==='Paid'){o.pay.status='Refunded';note(o.userId,'Refund of '+inr(o.amount)+' started for '+o.item+'.')}save();toast('Request '+s);render()}
+
+/* ---------- Admin actions ---------- */
+function cookStatus(id,s){db.cooks.find(c=>c.id===id).status=s;save();render()}
+function toggleUser(id){const u=db.users.find(x=>x.id===id);u.active=!u.active;save();render()}
+function addCuisine(e){e.preventDefault();const v=e.target.c.value.trim();if(v&&!db.cuisines.includes(v))db.cuisines.push(v);save();render()}
+function delCuisine(v){db.cuisines=db.cuisines.filter(x=>x!==v);save();render()}
+function resolve(id){const c=db.complaints.find(x=>x.id===id),n=prompt('Resolution note');if(n===null)return;c.status='resolved';c.note=n;save();render()}
+
+function addCity(e){e.preventDefault();const v=e.target.c.value.trim();if(v&&!db.cities.includes(v))db.cities.push(v);save();render()}
+function delCity(v){db.cities=db.cities.filter(x=>x!==v);save();render()}
+function notes(){const u=me(),l=db.notes.filter(x=>x.userId===u.id).reverse();db.notes.forEach(x=>{if(x.userId===u.id)x.read=true});save();nav();return'<h2>Notifications</h2>'+(l.map(x=>`<div class="card" style="margin-bottom:.5rem">${esc(x.text)}<br><span class="mut">${x.date}</span></div>`).join('')||'<p class="mut">No notifications yet.</p>')}
+function subReq(os){const p=os.filter(o=>o.kind==='sub'&&o.status==='pending');
+  return'<h3>Subscription requests</h3>'+(p.length?'<div class="grid" style="margin-bottom:1rem">'+p.map(o=>`<div class="card"><b>${esc((db.users.find(x=>x.id===o.userId)||{}).name||'Customer')}</b> wants a <b>${esc(o.plan)}</b> plan<br>${inr(o.amount)} \u00b7 ${payTxt(o)}<p style="margin:.5rem 0 0"><button class="p" onclick="setOrder('${o.id}','accepted')">Accept</button> <button class="d" onclick="setOrder('${o.id}','rejected')">Reject</button></p></div>`).join('')+'</div>':'<p class="mut">No pending subscription requests.</p>')+'<h3>All orders</h3>'}
+const payTxt=o=>o.pay?o.pay.method+' · '+o.pay.status:'—';
+function pay(e){e.preventDefault();const o=S.co,u=me(),f=e.target,m=f.pm.value,c=db.cooks.find(x=>x.id===o.cookId);
+  if(m==='card'&&f.cn.value.replace(/\s/g,'').length<12)return toast('Enter a valid card number.');
+  const paid=m!=='cod',txn=paid?'TXN'+Date.now().toString().slice(-8):'';
+  db.orders.push({id:'o_'+uid(),userId:u.id,cookId:o.cookId,kind:o.kind,plan:o.plan,item:o.item,amount:o.amount,status:'pending',date:new Date().toISOString().slice(0,10),pay:{method:m==='upi'?'UPI':m==='card'?'Card':'Cash on delivery',status:paid?'Paid':'Pay on delivery',txn}});
+  note(u.id,(paid?'Payment of '+inr(o.amount)+' received (ref '+txn+'). ':'')+'Request sent to '+c.name+' for '+o.item+'. Waiting for confirmation.');
+  if(c.userId)note(c.userId,u.name+' requested '+o.item+' ('+(paid?'paid':'cash on delivery')+').');
+  S.co=null;S.pm='upi';save();toast(paid?'Payment successful':'Order placed');go('history')}
+function checkout(){const o=S.co;if(!o)return home();const c=db.cooks.find(x=>x.id===o.cookId),m=S.pm||'upi';
+  return`<button onclick="go('cook-profile','${c.id}')">← Back</button>
+<div class="card narrow" style="max-width:520px"><h2>Checkout</h2>
+<p><b>${esc(c.name)}</b><br>${esc(o.item)} (${o.kind==='sub'?'Subscription':'One-time order'})</p>
+<p style="font-size:1.6rem;margin:.2rem 0">${inr(o.amount)}</p>
+<form onsubmit="pay(event)"><fieldset style="border:1px solid var(--line);border-radius:10px"><legend>Payment method</legend>
+${[['upi','UPI'],['card','Debit or credit card'],['cod','Cash on delivery']].map(([v,t])=>`<label style="display:flex;gap:.5rem;align-items:center;color:var(--ink)"><input type="radio" name="pm" value="${v}" ${m===v?'checked':''} onchange="S.pm='${v}';render()" style="width:auto"> ${t}</label>`).join('')}</fieldset>
+${m==='upi'?'<label for="upi">UPI ID</label><input id="upi" name="upi" placeholder="name@bank" pattern="[A-Za-z0-9._-]+@[A-Za-z]+" required>':''}
+${m==='card'?'<label for="cn">Card number</label><input id="cn" name="cn" inputmode="numeric" maxlength="19" placeholder="1234 5678 9012 3456" required><div class="row"><div style="flex:1"><label for="ce">Expiry (MM/YY)</label><input id="ce" name="ce" placeholder="08/28" pattern="(0[1-9]|1[0-2])/[0-9]{2}" required></div><div style="flex:1"><label for="cv">CVV</label><input id="cv" name="cv" type="password" inputmode="numeric" maxlength="3" pattern="[0-9]{3}" required></div></div>':''}
+${m==='cod'?'<p class="mut">Pay in cash when the tiffin is delivered.</p>':''}
+<p class="mut" style="font-size:.8rem">Demo checkout: no real money moves and card details are not saved.</p>
+<button class="p" style="width:100%">${m==='cod'?'Place order':'Pay '+inr(o.amount)}</button></form></div>`}
+function subInfo(o){const days={daily:1,weekly:7,monthly:30}[o.plan]||1,L={pending:'Waiting for cook',rejected:'Rejected',cancelled:'Cancelled'};
+  if(L[o.status])return{label:L[o.status],pct:0,left:0,start:o.status==='pending'?'Not started':(o.start||o.date),end:'—'};
+  const s=new Date((o.start||o.date)+'T00:00:00'),e=new Date(s.getTime()+days*864e5),left=Math.max(0,Math.ceil((e-new Date())/864e5));
+  return{label:left?'Active':'Expired',pct:Math.min(100,Math.round((1-left/days)*100)),left,start:o.start||o.date,end:e.toISOString().slice(0,10)}}
+function subCards(os){const l=os.filter(o=>o.kind==='sub');
+  if(!l.length)return'<div class="card"><b>No subscriptions yet.</b><p class="mut">Open a cook and choose Subscribe to start a daily, weekly or monthly tiffin plan.</p></div>';
+  return'<div class="grid">'+l.map(o=>{const i=subInfo(o),c=db.cooks.find(x=>x.id===o.cookId),bad=['Expired','Cancelled','Rejected'].includes(i.label);
+  return`<div class="card"><b>${esc(c.name)}</b><br><span class="tag ${i.label==='Active'?'veg':bad?'nv':''}">${i.label}</span><span class="tag" style="text-transform:capitalize">${o.plan} plan</span>
+<p style="margin:.4rem 0">${inr(o.amount)} · ${payTxt(o)}</p>
+<p class="mut" style="margin:0">Started: ${i.start}<br>Ends or renews: ${i.end}</p>
+${i.label==='Active'?`<div style="background:var(--line);border-radius:99px;height:8px;margin:.5rem 0" role="progressbar" aria-valuenow="${i.pct}" aria-valuemin="0" aria-valuemax="100"><div style="width:${i.pct}%;height:8px;border-radius:99px;background:var(--leaf);transition:width .8s"></div></div><p class="mut" style="margin:0 0 .5rem">${i.left} day${i.left>1?'s':''} left</p>`:''}
+<p style="margin:.5rem 0 0">${['Active','Waiting for cook'].includes(i.label)?`<button class="d" onclick="cancelSub('${o.id}')">Cancel</button> `:''}${['Active','Expired'].includes(i.label)?`<button class="p" onclick="renewSub('${o.id}')">Renew</button>`:''}</p></div>`}).join('')+'</div>'}
+function cancelSub(id){const o=db.orders.find(x=>x.id===id),c=db.cooks.find(x=>x.id===o.cookId);if(!confirm('Cancel this subscription?'))return;o.status='cancelled';note(o.userId,'You cancelled your '+o.plan+' plan with '+c.name+'.');if(c.userId)note(c.userId,me().name+' cancelled a '+o.plan+' subscription.');save();toast('Subscription cancelled');render()}
+function renewSub(id){const o=db.orders.find(x=>x.id===id),c=db.cooks.find(x=>x.id===o.cookId);S.co={cookId:o.cookId,kind:'sub',plan:o.plan,item:o.item,amount:c.plans[o.plan]||o.amount};go('checkout')}
+/* ---------- Views ---------- */
+function nav(){const u=me(),n=document.getElementById('nav'),cnt=u?db.notes.filter(x=>x.userId===u.id&&!x.read).length:0;
+  n.innerHTML='<button onclick="go(\'home\')">Find tiffin</button>'+(u?
+   (u.role==='customer'?'<button onclick="go(\'history\')">My orders</button>':'')+(u.role==='cook'?'<button onclick="go(\'cook\')">Dashboard</button>':'')+(u.role==='admin'?'<button onclick="go(\'admin\')">Admin</button>':'')+'<button onclick="go(\'notes\')" aria-label="Notifications">🔔'+(cnt?'<span class="badge">'+cnt+'</span>':'')+'</button><button onclick="logout()">Log out ('+esc(u.name.split(' ')[0])+')</button>'
+   :'<button onclick="go(\'login\')">Log in</button><button class="p" onclick="go(\'register\')">Sign up</button>')}
+function render(){try{draw();countUp()}catch(err){document.getElementById('app').innerHTML='<div class="card"><b>Something went wrong.</b><p class="mut">'+esc(err.message)+'</p><button class="p" onclick="resetData()">Reset demo data</button></div>'}}
+function draw(){nav();const v=S.view,A=document.getElementById('app'),u=me();
+  if(v==='home')A.innerHTML=home();
+  else if(v==='login')A.innerHTML=authForm(true);
+  else if(v==='register')A.innerHTML=authForm(false);
+  else if(v==='cook-profile')A.innerHTML=profile();
+  else if(v==='history')A.innerHTML=u?history():authForm(true);
+  else if(v==='notes')A.innerHTML=u?notes():authForm(true);
+  else if(v==='checkout')A.innerHTML=u&&u.role==='customer'?checkout():authForm(true);
+  else if(v==='cook')A.innerHTML=u&&u.role==='cook'?cookDash():authForm(true);
+  else if(v==='admin')A.innerHTML=u&&u.role==='admin'?adminDash():authForm(true);
+}
+function authForm(login){return`<div class="card narrow"><h2>${login?'Log in':'Create your account'}</h2>
+<form onsubmit="${login?'doLogin':'doRegister'}(event)">
+${login?'':'<label for="name">Full name</label><input id="name" name="name" required><label for="city">City</label><input id="city" name="city" value="Mysuru"><label for="role">I want to</label><select id="role" name="role"><option value="customer">Order homemade food</option><option value="cook">Sell homemade food (home cook)</option></select>'}
+<label for="email">Email</label><input id="email" name="email" type="email" required autocomplete="email">
+<label for="pw">Password</label><input id="pw" name="pw" type="password" required minlength="6" autocomplete="${login?'current-password':'new-password'}">
+<p id="msg" class="err" role="alert"></p><button class="p" style="width:100%">${login?'Log in':'Sign up'}</button></form>
+<p class="mut">${login?'New here? <a href="#" onclick="go(\'register\');return false">Create an account</a><br>Demo: admin@demo.com / admin123, cook@demo.com / cook123 (this cook manages all demo kitchens: use Switch kitchen), customer@demo.com / cust123':'Have an account? <a href="#" onclick="go(\'login\');return false">Log in</a>'}</p></div>`}
+function home(){const f=S.f,cities=db.cities;
+  const list=db.cooks.filter(c=>c.status==='approved'&&(!f.city||c.city===f.city)
+    &&(!f.q||(c.name+c.area+c.serves+c.menu.map(m=>m.dish).join()).toLowerCase().includes(f.q.toLowerCase()))
+    &&(!f.type||c.kind===f.type||c.kind==='Both'||c.menu.some(m=>m.type===f.type))
+    &&(!f.cuisine||c.cuisine===f.cuisine)&&(!f.plan||c.plans[f.plan]>0)
+    &&(!f.max||minP(c)<=+f.max));
+  const opt=(arr,v)=>arr.map(x=>`<option ${x===v?'selected':''}>${esc(x)}</option>`).join('');
+  return`<section class="hero"><h1>Homemade tiffin, from kitchens near you</h1><p>Healthy, affordable and hygienic meals from verified home cooks. Order once or subscribe daily, weekly or monthly.</p></section>
+<div class="filters">
+<div><label for="fc">City</label><select id="fc" onchange="setF('city',this.value)"><option value="">All cities</option>${opt(cities,f.city)}</select></div>
+
+<div><label for="ft">Meal type</label><select id="ft" onchange="setF('type',this.value)"><option value="">Any</option>${opt(['Veg','Non-Veg'],f.type)}</select></div>
+<div><label for="fu">Cuisine</label><select id="fu" onchange="setF('cuisine',this.value)"><option value="">Any</option>${opt(db.cuisines,f.cuisine)}</select></div>
+<div><label for="fp">Meal plan</label><select id="fp" onchange="setF('plan',this.value)"><option value="">Any</option>${['daily','weekly','monthly'].map(p=>`<option ${p===f.plan?'selected':''}>${p}</option>`).join('')}</select></div>
+<div><label for="fm">Max price per meal (₹)</label><input id="fm" type="number" min="0" value="${esc(f.max)}" onchange="setF('max',this.value)"></div></div>
+<div class="grid">${list.map(c=>`<article class="card"><h3>${esc(c.name)}</h3>
+<div>${stars(avg(c.id))} <span class="mut">(${db.reviews.filter(r=>r.cookId===c.id).length})</span></div>
+<p class="mut" style="margin:.3rem 0">${esc(c.area)}, ${esc(c.city)}</p>
+<span class="tag ${c.kind==='Non-Veg'?'nv':'veg'}">${c.kind}</span><span class="tag">${esc(c.cuisine)}</span>
+<p>From <b>${minP(c)?inr(minP(c)):'—'}</b> per meal${c.plans.monthly?' · Monthly '+inr(c.plans.monthly):''}</p>
+<button class="p" onclick="go('cook-profile','${c.id}')">View menu and plans</button></article>`).join('')||'<div><p class="mut">No cooks match these filters.</p><button class="p" onclick="S.f={city:\'\',q:\'\',type:\'\',cuisine:\'\',plan:\'\',max:\'\'};render()">Clear all filters</button></div>'}</div>`}
+function profile(){const c=db.cooks.find(x=>x.id===S.cookId);if(!c)return home();
+  const rv=db.reviews.filter(r=>r.cookId===c.id);
+  return`<button onclick="go('home')">← Back to results</button>
+<div class="card" style="margin-top:.8rem"><h2>${esc(c.name)}</h2><div>${stars(avg(c.id))}</div>
+<p>${esc(c.bio)}</p>
+<p><span class="tag ${c.kind==='Non-Veg'?'nv':'veg'}">${c.kind}</span><span class="tag">${esc(c.cuisine)}</span></p>
+<p><b>Delivers to:</b> ${esc(c.serves)}<br><b>Delivery timings:</b> ${esc(c.timings)}</p></div>
+<h3 style="margin-top:1rem">Meal plans</h3><div class="grid">${['daily','weekly','monthly'].map(p=>`<div class="card"><b style="text-transform:capitalize">${p}</b><p style="font-size:1.4rem;margin:.2rem 0">${c.plans[p]?inr(c.plans[p]):'Not offered'}</p>${c.plans[p]?`<button class="p" onclick="order('${c.id}','sub','${p}')">Subscribe</button>`:''}</div>`).join('')}</div>
+<h3 style="margin-top:1rem">Menu</h3><div class="grid">${c.menu.map(m=>`<div class="card"><b>${esc(m.dish)}</b><br><span class="tag ${m.type==='Non-Veg'?'nv':'veg'}">${m.type}</span> ${inr(m.price)}<p class="mut">${m.avail?'Available today':'Not available today'}${m.time?' · Delivery '+esc(m.time):''}</p>${m.avail?`<button onclick="order('${c.id}','order','','${m.id}')">Order once</button>`:''}</div>`).join('')||'<p class="mut">Menu coming soon.</p>'}</div>
+<h3 style="margin-top:1rem">Reviews</h3>${rv.map(r=>`<div class="card" style="margin-bottom:.5rem">${stars(r.rating)} <b>${esc(r.name)}</b><br>${esc(r.text)}</div>`).join('')||'<p class="mut">No reviews yet.</p>'}`}
+function history(){const u=me(),os=db.orders.filter(o=>o.userId===u.id).reverse(),nm=id=>db.cooks.find(c=>c.id===id).name;
+  const subs=os.filter(o=>o.kind==='sub'&&o.status==='accepted').length;
+  return`<h2>My subscriptions</h2><p class="mut">Active subscriptions: ${os.filter(o=>o.kind==='sub'&&subInfo(o).label==='Active').length}</p>${subCards(os)}<h2 style="margin-top:1.2rem">Order history</h2><div class="card scroll"><table><tr><th>Date</th><th>Cook</th><th>Item</th><th>Type</th><th>Amount</th><th>Payment</th><th>Status</th><th></th></tr>
+${os.map(o=>`<tr><td>${o.date}</td><td>${esc(nm(o.cookId))}</td><td>${esc(o.item)}</td><td>${o.kind==='sub'?'Subscription':'Order'}</td><td>${inr(o.amount)}</td><td>${payTxt(o)}</td><td>${o.status}</td><td>${o.status==='accepted'&&!o.rated?`<button onclick="rate('${o.id}')">Rate</button> `:''}<button onclick="complain('${o.id}')">Report issue</button></td></tr>`).join('')||'<tr><td colspan="8" class="mut">Nothing here yet. Find a tiffin provider to place your first order.</td></tr>'}</table></div>`}
+function cookDash(){const u=me(),c=cookOf(u),t=S.tab||'orders';
+  if(!c)return'<p>No kitchen found.</p>';
+  const tb=x=>`<button aria-pressed="${t===x}" onclick="S.tab='${x}';render()">${{orders:'Orders & earnings',menu:'Menu',profile:'Profile & plans'}[x]}</button>`;
+  let body='';
+  if(c.status!=='approved')body=`<div class="card"><b>Status: ${c.status}.</b> ${c.status==='pending'?'Customers can see your kitchen after admin approval. Complete your profile, menu and plans meanwhile.':'Your registration was rejected. Contact admin.'}</div>`;
+  const os=db.orders.filter(o=>o.cookId===c.id).reverse();
+  if(t==='orders'){const earn=os.filter(o=>o.status==='accepted').reduce((s,o)=>s+o.amount,0);
+    body+=`<div class="kpis"><div class="card kpi"><b>${os.filter(o=>o.status==='pending').length}</b>Pending requests</div><div class="card kpi"><b>${os.filter(o=>o.kind==='sub'&&o.status==='accepted').length}</b>Active subscribers</div><div class="card kpi"><b>${inr(earn)}</b>Earnings</div><div class="card kpi"><b>${os.length}</b>Total orders</div></div>
+${subReq(os)}<div class="card scroll"><table><tr><th>Date</th><th>Customer</th><th>Item</th><th>Amount</th><th>Payment</th><th>Status</th><th></th></tr>${os.map(o=>`<tr><td>${o.date}</td><td>${esc((db.users.find(x=>x.id===o.userId)||{}).name||'')}</td><td>${esc(o.item)}</td><td>${inr(o.amount)}</td><td>${payTxt(o)}</td><td>${o.status}</td><td>${o.status==='pending'?`<button class="p" onclick="setOrder('${o.id}','accepted')">Accept</button> <button class="d" onclick="setOrder('${o.id}','rejected')">Reject</button>`:''}</td></tr>`).join('')||'<tr><td colspan="7" class="mut">No requests yet.</td></tr>'}</table></div>`}
+  if(t==='menu')body+=`<div class="card"><h3>Add or edit a dish</h3><form id="dishForm" onsubmit="saveDish(event)"><input type="hidden" name="id"><label for="dish">Dish name</label><input id="dish" name="dish" required><label for="type">Meal type</label><select id="type" name="type"><option>Veg</option><option>Non-Veg</option></select><label for="price">Price (₹)</label><input id="price" name="price" type="number" min="1" required><label for="dt">Delivery time</label><input id="dt" name="time" placeholder="e.g. 12:30 PM"><label><input name="avail" type="checkbox" checked style="width:auto"> Available today</label><br><button class="p">Save dish</button></form></div>
+<div class="card scroll" style="margin-top:.8rem"><table><tr><th>Dish</th><th>Type</th><th>Price</th><th>Available</th><th></th></tr>${c.menu.map(m=>`<tr><td>${esc(m.dish)}</td><td>${m.type}</td><td>${inr(m.price)}</td><td>${m.avail?'Yes':'No'}</td><td><button onclick="editDish('${m.id}')">Edit</button> <button class="d" onclick="delDish('${m.id}')">Delete</button></td></tr>`).join('')}</table></div>`;
+  if(t==='profile')body+=`<form class="card" onsubmit="saveProfile(event)"><label for="n">Kitchen name</label><input id="n" name="name" value="${esc(c.name)}" required>
+<label for="ci">City</label><input id="ci" name="city" value="${esc(c.city)}" required><label for="ar">Area</label><input id="ar" name="area" value="${esc(c.area)}">
+<label for="sv">Service area (localities you deliver to)</label><input id="sv" name="serves" value="${esc(c.serves)}"><label for="tm">Delivery timings</label><input id="tm" name="timings" value="${esc(c.timings)}">
+<label for="cu">Cuisine</label><select id="cu" name="cuisine">${db.cuisines.map(x=>`<option ${x===c.cuisine?'selected':''}>${esc(x)}</option>`).join('')}</select>
+<label for="kd">Food type</label><select id="kd" name="kind">${['Veg','Non-Veg','Both'].map(x=>`<option ${x===c.kind?'selected':''}>${x}</option>`).join('')}</select>
+<label for="bi">About your kitchen</label><textarea id="bi" name="bio" rows="3">${esc(c.bio)}</textarea>
+<label for="pd">Daily plan price (₹)</label><input id="pd" name="daily" type="number" min="0" value="${c.plans.daily}"><label for="pw">Weekly plan price (₹)</label><input id="pw" name="weekly" type="number" min="0" value="${c.plans.weekly}"><label for="pm">Monthly plan price (₹)</label><input id="pm" name="monthly" type="number" min="0" value="${c.plans.monthly}">
+<p><button class="p">Save profile</button></p></form>`;
+  const mine=db.cooks.filter(k=>k.userId===u.id);return`<h2>${esc(c.name)} dashboard</h2>${mine.length>1?`<label for="kt">Switch kitchen</label><select id="kt" onchange="S.kid=this.value;render()">${mine.map(k=>`<option value="${k.id}" ${k.id===c.id?'selected':''}>${esc(k.name)} (${esc(k.city)})</option>`).join('')}</select>`:''}<div class="tabs">${tb('orders')}${tb('menu')}${tb('profile')}</div>${body}`}
+function adminDash(){const t=S.tab||'overview',tb=x=>`<button aria-pressed="${t===x}" onclick="S.tab='${x}';render()">${x[0].toUpperCase()+x.slice(1)}</button>`;
+  const cust=db.users.filter(u=>u.role==='customer'),subs=db.orders.filter(o=>o.kind==='sub'&&o.status==='accepted'),
+   conv=db.orders.length?Math.round(db.orders.filter(o=>o.status==='accepted').length/db.orders.length*100):0,
+   rep=new Set(db.orders.map(o=>o.userId)).size,ret=new Set(db.orders.map(o=>o.userId)).size?Math.round(new Set(db.orders.filter((o,i,a)=>a.some((p,j)=>j!==i&&p.userId===o.userId)).map(o=>o.userId)).size/rep*100):0;
+  let b='';
+  if(t==='overview')b=`<div class="kpis">${[['Registered users',db.users.length],['Active subscriptions',subs.length],['Order conversion',conv+'%'],['Cooks onboarded',db.cooks.filter(c=>c.status==='approved').length+'/'+db.cooks.length],['Customers',cust.length],['Retention',ret+'%']].map(k=>`<div class="card kpi"><b>${k[1]}</b>${k[0]}</div>`).join('')}</div>`;
+  if(t==='cooks')b=`<div class="card scroll"><table><tr><th>Kitchen</th><th>City</th><th>Status</th><th></th></tr>${db.cooks.map(c=>`<tr><td>${esc(c.name)}</td><td>${esc(c.city)}</td><td>${c.status}</td><td>${c.status!=='approved'?`<button class="p" onclick="cookStatus('${c.id}','approved')">Approve</button> `:''}${c.status!=='rejected'?`<button class="d" onclick="cookStatus('${c.id}','rejected')">Reject</button>`:''}</td></tr>`).join('')}</table></div>`;
+  if(t==='users')b=`<div class="card scroll"><table><tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th><th></th></tr>${db.users.map(u=>`<tr><td>${esc(u.name)}</td><td>${esc(u.email)}</td><td>${u.role}</td><td>${u.active?'Active':'Blocked'}</td><td>${u.role!=='admin'?`<button onclick="toggleUser('${u.id}')">${u.active?'Block':'Unblock'}</button>`:''}</td></tr>`).join('')}</table></div>`;
+  if(t==='orders')b=`<div class="card scroll"><table><tr><th>Date</th><th>Customer</th><th>Cook</th><th>Item</th><th>Amount</th><th>Payment</th><th>Status</th></tr>${db.orders.slice().reverse().map(o=>`<tr><td>${o.date}</td><td>${esc((db.users.find(u=>u.id===o.userId)||{}).name||'')}</td><td>${esc((db.cooks.find(c=>c.id===o.cookId)||{}).name||'')}</td><td>${esc(o.item)} (${o.kind})</td><td>${inr(o.amount)}</td><td>${payTxt(o)}</td><td>${o.status}</td></tr>`).join('')||'<tr><td colspan="7" class="mut">No orders yet.</td></tr>'}</table></div>`;
+  if(t==='cuisines')b=`<div class="card"><form class="row" onsubmit="addCuisine(event)"><input name="c" placeholder="New cuisine or category" required style="flex:1"><button class="p">Add</button></form><p>${db.cuisines.map(c=>`<span class="tag">${esc(c)} <a href="#" onclick="delCuisine('${esc(c)}');return false" aria-label="Remove ${esc(c)}">✕</a></span>`).join('')}</p></div>`;
+  if(t==='cities')b=`<div class="card"><form class="row" onsubmit="addCity(event)"><input name="c" placeholder="Add a new city" required style="flex:1"><button class="p">Add city</button></form><p>${db.cities.map(c=>`<span class="tag">${esc(c)} <a href="#" onclick="delCity('${esc(c)}');return false" aria-label="Remove ${esc(c)}">✕</a></span>`).join('')}</p></div>`;
+  if(t==='complaints')b=`<div class="card scroll"><table><tr><th>From</th><th>Complaint</th><th>Status</th><th></th></tr>${db.complaints.map(c=>`<tr><td>${esc((db.users.find(u=>u.id===c.userId)||{}).name||'')}</td><td>${esc(c.text)}</td><td>${c.status}${c.note?': '+esc(c.note):''}</td><td>${c.status==='open'?`<button class="p" onclick="resolve('${c.id}')">Resolve</button>`:''}</td></tr>`).join('')||'<tr><td colspan="4" class="mut">No complaints.</td></tr>'}</table></div>`;
+  return`<h2>Admin dashboard</h2><div class="tabs">${['overview','cooks','users','orders','cuisines','cities','complaints'].map(tb).join('')}</div>${b}`}
+init();
+</script>
+</body>
+</html>
